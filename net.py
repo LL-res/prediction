@@ -50,10 +50,10 @@ class LSTMNet(nn.Module):
         return hidden
 
 
-def train(train_loader,metrci_type, learn_rate=0.001, hidden_dim=256, EPOCHS=50, model_type="GRU"):
+def train(train_loader,metrci_type, learn_rate=0.001, hidden_dim=256, EPOCHS=param.epochs, model_type="GRU"):
     # Setting common hyperparameters
     input_dim = next(iter(train_loader))[0].shape[2]
-    output_dim = 1
+    output_dim = param.look_forward
     n_layers = param.n_layers
     # Instantiating the models
     if model_type == "GRU":
@@ -126,7 +126,7 @@ def predict(metrics,model_type,metric_type,hidden_dim = 256):
     metrics = metrics[-param.look_back:]
     metrics = metrics.reshape((-1,len(metrics),1))
     input_dim = 1
-    output_dim = 1
+    output_dim = param.look_forward
     n_layers = param.n_layers
     # Instantiating the models
     if model_type == "GRU":

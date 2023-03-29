@@ -3,24 +3,29 @@ import net
 import math
 import matplotlib.pyplot as plt
 
+import param
+
 metrics = []
-for i in range(0,1000):
-    metrics.append(100*math.sin(0.01*i))
+
+for i in range(0,10000):
+    metrics.append(100*math.sin(0.1*i))
 tests = []
-for i in range(0,100):
-    tests.append(100*math.sin(0.01*i))
+for i in range(0,param.look_back):
+    tests.append(100*math.sin(0.1*i))
 real = []
-for i in range(0,200):
-    real.append(100*math.sin(0.01*i))
+for i in range(0,param.look_back+param.look_forward):
+    real.append(100*math.sin(0.1*i))
 train_loader = data_preparation.train_data_prepare(metrics)
 
 #net.train(train_loader,"cpu")
 
-for i in range(100,200):
-    out = net.predict(tests,"GRU","cpu")
-    tests.append(out.item())
+
+out = net.predict(tests,"GRU","cpu")
+print(out)
+tests.append(out.item())
 
 
 plt.plot(tests)
+
 plt.plot(real)
 plt.show()

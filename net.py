@@ -50,7 +50,7 @@ class LSTMNet(nn.Module):
         return hidden
 
 
-def train(train_loader,metrci_type, learn_rate=0.001, hidden_dim=256, EPOCHS=param.epochs, model_type="GRU"):
+def train(train_loader,metric_type, learn_rate=0.001, hidden_dim=256, EPOCHS=param.epochs, model_type="GRU"):
     # Setting common hyperparameters
     input_dim = next(iter(train_loader))[0].shape[2]
     output_dim = param.look_forward
@@ -97,7 +97,7 @@ def train(train_loader,metrci_type, learn_rate=0.001, hidden_dim=256, EPOCHS=par
         print("Time Elapsed for Epoch: {} seconds".format(str(current_time - start_time)))
         epoch_times.append(current_time - start_time)
     print("Total Training Time: {} seconds".format(str(sum(epoch_times))))
-    torch.save(model.state_dict(), '{}_{}.pt'.format(model_type,metrci_type))
+    torch.save(model.state_dict(), '{}_{}.pt'.format(model_type,metric_type))
     return model
 
 
@@ -120,7 +120,7 @@ def evaluate(model, test_x, test_y, label_scalers):
     print("sMAPE: {}%".format(sMAPE * 100))
     return outputs, targets, sMAPE
 
-def predict(metrics,model_type,metric_type,hidden_dim = 256):
+def predict(metrics,metric_type,model_type="GRU",hidden_dim = 256):
     metrics = np.array(metrics)
     # 只要后look back个的数据
     metrics = metrics[-param.look_back:]

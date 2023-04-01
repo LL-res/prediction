@@ -12,4 +12,4 @@ STATUS_PREDICT = 2
 
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
-socket_address = ''
+socket_address = '/tmp/uds_socket'

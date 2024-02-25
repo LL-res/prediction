@@ -16,8 +16,9 @@ def read_from_csv(container_id):
     cpu_usage = []
     memory_usage = []
     cached = False
+    cache_path = '/home/liao/Desktop/P/prediction/ali_data_prepare/cache.csv'
     #先读缓存
-    with open('/home/liao/Desktop/P/prediction/ali_data_prepare/cache.csv', 'r') as cache:
+    with open(cache_path, 'r') as cache:
         reader = csv.reader(cache)
         for line in reader:
             if line[0] != container_id:
@@ -49,7 +50,7 @@ def read_from_csv(container_id):
             memory_usage.append(mem_val)
     cpu_to_cache = [container_id]
     mem_to_cache = [container_id]
-    with open('./cache.csv', 'a', newline='') as file:
+    with open(cache_path, 'a', newline='') as file:
         csv_writer = csv.writer(file)
         data_to_write = [cpu_to_cache+cpu_usage,mem_to_cache+memory_usage]
         csv_writer.writerows(data_to_write)

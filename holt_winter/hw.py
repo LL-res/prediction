@@ -61,7 +61,7 @@ class HW:
         start = time.perf_counter()
         predict = self.triple_exponential_smoothing(series)
         end = time.perf_counter()
-        print("time consuming {}ms".format((end - start) * 1000))
+        # print("time consuming {}ms".format((end - start) * 1000))
         self.predict_values = predict[-self.look_forward:]
         return predict[-self.look_forward:]
 
